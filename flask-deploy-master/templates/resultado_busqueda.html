@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Buscar Por Participante</title>
+</head>
+<body>
+    Resultado Participantes 
+    <a href="{{url_for('home')}}" class="text-blue-600 visited:text-purple-600"> Ir a Marcaciones </a>
+    <br>
+    <br>
+    Para el usuario: {{data[0]["numero"]}}
+    <br>
+    <br>
+    {% for i in data %}
+    {{i["hora"], i["fecha"]}}
+    <br>
+    {% endfor %}
+
+    <a href="{{url_for('descargar')}}">
+        <button type="submit" value="data{{data[0]['numero']}}" class="
+        w-full
+        px-6
+        py-2.5
+        bg-blue-600
+        text-white
+        font-medium 
+        text-xs
+        leading-tight
+        uppercase
+        rounded
+        shadow-md
+        hover:bg-blue-700 hover:shadow-lg
+        focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+        active:bg-blue-800 active:shadow-lg
+        transition
+        duration-150
+        ease-in-out">Descargar</button>
+    </a>
+
+
+    <a href="{{url_for('registro_ent')}}" class="text-blue-600 visited:text-purple-600"> Registrar nuevos participantes </a>
+</body>
+</html>

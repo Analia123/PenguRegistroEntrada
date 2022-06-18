@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Pengu Registro</title>
+</head>
+<body class="bg-gray-900">
+  <div class="p-8">
+      <p class="font-serif text-center text-yellow-300 text-base text-8xl hover:no-underline italic"> ¡Bienvenido a Penguin House!</p>
+  </div>
+  <!-- <a href="{{url_for('home')}}" class="text-gray-900 visited:text-gray-900"> Realizar Marcaciones </a> -->
+
+    <div class="container mx-auto block p-6 rounded-lg shadow-lg bg-yellow-200 max-w-prose">
+
+        <p class=" text-3xl font-black  italic font-mono text-center text-bold">Registrar participante :)</p>
+        <br>
+        <form class="bg-yellow-200" action="/api/agregardatos" method="POST">
+          <div class="grid bg-yellow-200 grid-cols-2 gap-4">
+            <div class="form-group mb-6">
+              <input type="text" class="form-control
+                block
+                w-full
+                px-3
+                py-1.5
+                text-base
+                font-normal
+                text-gray-700
+                bg-gray-100 bg-gray-100
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="nombre" name="nombre"
+                aria-describedby="nombre" placeholder="Nombre">
+            </div>
+            <div class="form-group mb-6">
+              <input type="text" class="form-control
+                block
+                w-full
+                px-3
+                py-1.5
+                text-base
+                font-normal
+                text-gray-700
+                bg-gray-100 bg-gray-100
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="apellido" name="apellido"
+                aria-describedby="apellido" placeholder="Apellido">
+            </div>
+          </div>
+          <div class="form-group mb-6">
+            <input type="text" class="form-control block
+              w-full
+              px-3
+              py-1.5
+              text-base
+              font-normal
+              text-gray-700
+              bg-gray-100 bg-gray-100
+              border border-solid border-gray-300
+              rounded
+              transition
+              ease-in-out
+              m-0
+              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="numero" name="numero"
+              placeholder="Numero ID Participante">
+          </div>
+          <button type="submit" class="
+            w-full
+            px-6
+            py-2.5
+            bg-indigo-800
+            text-white
+            font-medium
+            text-xs
+            leading-tight
+            uppercase
+            rounded
+            shadow-md
+            hover:bg-blue-700 hover:shadow-lg
+            focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+            active:bg-blue-800 active:shadow-lg
+            transition
+            duration-150
+            ease-in-out">Registrar Participante</button>
+        </form>
+      </div>
+
+<!-- FORM LEGACY 
+
+    <form action="/api/agregardatos" method="POST">
+
+        <label for="name">Nombre</label><br>
+        <input type="text" id="nombre" name="nombre" value=""><br>
+
+        <label for="apellido">Apellido</label><br>
+        <input type="text" id="apellido" name="apellido" value=""><br>
+
+
+        <label for="numero">Numero de ID</label><br>
+        <input type="text" id="numero" name="numero" value=""><br><br>
+
+        <input type="submit" value="enviar">
+    </form> -->
+
+    <script>
+      document.getElementById("nombre").focus();
+  </script>
+
+</body>
+</html>

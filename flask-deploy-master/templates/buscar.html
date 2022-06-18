@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Buscar Por Participante</title>
+</head>
+<body>
+    
+    <a href="{{url_for('home')}}" class="text-blue-600 visited:text-purple-600"> Volver a inicio </a>
+
+    <div class="block p-6 rounded-lg shadow-lg bg-white max-w-md">
+        <p class="text-center text-bold">Buscar Marcaciones por ID </p>
+        <br>
+        <form action="/api/buscar" method="POST">
+        <div class="form-group mb-6">
+        <input type="text" class="form-control block
+            w-full
+            px-3
+            py-1.5
+            text-base
+            font-normal
+            text-gray-700
+            bg-white bg-clip-padding
+            border border-solid border-gray-300
+            rounded
+            transition
+            ease-in-out
+            m-0
+            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="numero" name="numero"
+            placeholder="Numero ID Participante">
+        </div>
+        <button type="submit" class="
+        w-full
+        px-6
+        py-2.5
+        bg-blue-600
+        text-white
+        font-medium
+        text-xs
+        leading-tight
+        uppercase
+        rounded
+        shadow-md
+        hover:bg-blue-700 hover:shadow-lg
+        focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+        active:bg-blue-800 active:shadow-lg
+        transition
+        duration-150
+        ease-in-out">Buscar Participante</button>
+    </form>
+    </div>
+
+    <a href="{{url_for('registro_ent')}}" class="text-blue-600 visited:text-purple-600"> Volver a Marcacion Diaria </a>
+
+<!--     
+    <form action="/api/search4per" method="post">
+        <label for="numero">Codigo de Participante </label><br>
+        <input type="text" id="numero" name="numero" value="">
+    </br>
+</br>
+        <input type="submit" value="enviar">
+    </form> -->
+    <script>
+        document.getElementById("numero").focus();
+    </script>
+</body>
+</html>
