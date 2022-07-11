@@ -1,15 +1,14 @@
 from flask import Flask, jsonify, render_template, request, redirect, send_file
 from models import db, datitos, marcaciones
 from logging import exception
-import sqlalchemy as based
 import datetime
-import pytz
+import pytz # Python timezone
 import pandas as pd
 
 app = Flask(__name__)
 
 #COFIGURAMOS EL ACCESO A LA BASE DE DATOS
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///databases/datitos.db" #Direccion abs en linux
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///databases/bootcamp10.db" #Direccion abs en linux
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
@@ -42,10 +41,13 @@ def addPersona():
 #Se renderiza la página de bienvenido al usuario que se registra por primera vez
 @app.route("/bienvenido", methods=["GET"])
 def bienvenido():
+    if len(request.args) > 0:
         namePersona = request.args["nombre"]
         datos = {}
         datos["perfil"] = datitos.query.filter_by(nombre=namePersona).first()
         return render_template("bienvenido.html", data=namePersona)
+    else:
+        return redirect("/")
 
 
 #Se renderiza la pagina de Registro de Entrada y recibe el dato de numero de ID del usuario y envia a /api/search4per para buscarlo en la base de datos.
