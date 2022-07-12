@@ -29,7 +29,7 @@ class datitos(db.Model):
 
     def __init__(self, nombre, apellido, numero, mesa):
         super().__init__()
-
+        
         deitaim = datetime.datetime.now(pytz.timezone('America/Asuncion'))
 
         self.nombre = nombre
@@ -59,7 +59,7 @@ class datitos(db.Model):
             "mesa": self.mesa
         }
 
-    def create(self):
+    def save(self):
         db.session.add(self)
         db.session.commit()
         return self

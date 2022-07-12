@@ -26,7 +26,7 @@ def addPersona():
         apellido = request.form["apellido"]
         numero = request.form["numero"]
         persona = datitos(nombre, apellido, numero, mesa=None)
-        datitos.create(persona)
+        datitos.save(persona)
 
         return redirect('/bienvenido?nombre='+nombre)
     except Exception as k:
@@ -93,7 +93,7 @@ def search4per():
             fecha = deitaim.strftime("%d-%m-%Y")
             hora = deitaim.strftime("%H:%M:%S")
             persona = marcaciones(fecha, hora, numeroPersona)
-            datitos.create(persona)
+            datitos.save(persona)
             filter = datitos.query.filter_by(numero=numeroPersona)
             toReturn = [datox.serialize() for datox in filter]
             return render_template("gracias.html", data=toReturn[0]["nombre"])
