@@ -1,0 +1,94 @@
+{% extends 'base.html' %} {% block content %}
+<div class="p-4">
+  <h1 class="text-3xl text-bold text-white my-4">Participantes</h1>
+  <button
+    type="button"
+    id="save-changes"
+    class="text-white bg-yellow-500 px-4 py-2 rounded"
+  >
+    Guardar cambios
+  </button>
+  <div class="flex flex-col">
+    <div class="overflow-x-auto">
+      <div class="py-2 inline-block min-w-full">
+        <div class="overflow-scroll">
+          <table class="min-w-full">
+            <thead class="border-b text-yellow-500 text-lg">
+              <tr>
+                <th scope="col" class="px-6 py-4 text-left">Nombre</th>
+                <th scope="col" class="px-6 py-4 text-left">Apellido</th>
+                <th scope="col" class="px-6 py-4 text-left">Numero ID</th>
+                <th scope="col" class="px-6 py-4 text-left">Mesa</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for participante in participantes %}
+              <tr class="border-b text-white">
+                <td class="px-6 py-4 whitespace-nowrap">
+                  {{participante.nombre}}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  {{participante.apellido}}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  {{participante.numero}}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <input
+                    type="number"
+                    min="1"
+                    name="mesa"
+                    id="{{participante.numero}}"
+                    value="{{participante.mesa}}"
+                    class="text-black text-center w-1/6"
+                  />
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const saveChangesButton = document.getElementById('save-changes');
+
+  saveChangesButton.addEventListener('click', () => {
+    const inputs = document.querySelectorAll('td > input');
+
+    const data = [];
+
+    const personasString = '{{ participantes }}'
+      .replaceAll('&#39;', '"')
+      .replaceAll('None', null);
+    const personasJson = JSON.parse(personasString);
+
+    console.log(personasJson);
+
+    inputs.forEach((input, index) => {
+      data.push({
+        ...personasJson[index],
+        mesa: input.value,
+      });
+    });
+
+    // console.log(data);
+    const url = '/api/update_participantes';
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ data }),
+    };
+    fetch(url, options)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+  });
+</script>
+{% endblock %}
