@@ -24,15 +24,29 @@ def addPersona():
     try:
         nombre = request.form["nombre"]
         apellido = request.form["apellido"]
-        deitaim = datetime.datetime.now(pytz.timezone('America/Asuncion'))
-        fecha = deitaim.strftime("%d-%m-%Y")
-        hora = deitaim.strftime("%H:%M:%S")
         numero = request.form["numero"]
-        persona = datitos(nombre, apellido, fecha, hora, numero)
-        db.session.add(persona)
-        db.session.commit()
+        persona = datitos(nombre, apellido, numero, mesa=None)
+        datitos.save(persona)
 
         return redirect('/bienvenido?nombre='+nombre)
+    except Exception as k:
+        print(k)
+        exception("[SERVER]: Error in route  /api/addPersona, Log: \n")
+        return jsonify({"msg": "Algo ha salido mal"}),500
+
+
+@app.route("/api/update_participantes", methods=["PUT"])
+def updatePersonas():
+    try:
+        # Obtenemos los datos del body
+        data = request.get_json()['data']
+        print(data)
+        for row in data:
+            persona = datitos.query.filter_by(numero=row['numero']).first()
+            datitos.update(persona, row)
+
+        # return redirect('/bienvenido?nombre='+nombre)
+        return jsonify({"msg": "Algo ha salido bien"}),200
     except Exception as k:
         print(k)
         exception("[SERVER]: Error in route  /api/addPersona, Log: \n")
@@ -55,13 +69,22 @@ def bienvenido():
 def registro_ent():
     return render_template("registro_participantes.html")
 
+
+@app.route("/participantes", methods=["GET"])
+def participantes():
+    # Obtener los participantes de la base de datos
+    participantes = datitos.query.all()
+    # Convertir los participantes a una lista de diccionarios
+    participantes = [to_dict(participante) for participante in participantes]
+    return render_template("lista_participantes.html", participantes=participantes)
+
 #La siguiente funcion verifica la tabla datitos por la persona que fue ingresada en el menu anterior y si existe registro lo devuelve en gracias.html "Gracias por volver a Penguin" + el nombre de la persona y agrega el registro de entrada a la tabla marcaciones.
 @app.route("/api/search4per", methods=["POST", "GET"])
 def search4per():
     try:
         numeroPersona = request.form["numero"]
 
-        db.session.commit()
+        # db.session.commit()
         datox = datitos.query.filter(datitos.numero.like(f"%{numeroPersona}%")).first()
         if not datox:
             return jsonify({"msg": "Esta persona no existe"}),200
@@ -70,8 +93,7 @@ def search4per():
             fecha = deitaim.strftime("%d-%m-%Y")
             hora = deitaim.strftime("%H:%M:%S")
             persona = marcaciones(fecha, hora, numeroPersona)
-            db.session.add(persona)
-            db.session.commit()
+            datitos.save(persona)
             filter = datitos.query.filter_by(numero=numeroPersona)
             toReturn = [datox.serialize() for datox in filter]
             return render_template("gracias.html", data=toReturn[0]["nombre"])
