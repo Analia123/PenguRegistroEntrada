@@ -1,23 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Bienvenido seas!</title>
-</head>
-<body class="p-48 bg-gray-900">
-    <p class="font-sans italic text-bold text-center text-yellow-100 text-base text-6xl hover:no-underline italic"> ¡Bienvenido, {{data}} . Nos agrada tu presencia!</p>
-    <br>
-    <a href="{{url_for('home')}}">
-    <div class="container mx-auto block p-6 rounded-lg  shadow-lg bg-yellow-200 max-w-prose">
-        <p class="text-black text-center font-bold visited:text-black">Marcar Ingreso a Penguin House</p>
-    </div></a>
-    <br>
-    <br><a href="{{url_for('registro_ent')}}"> 
-    <div class="container mx-auto block p-6 rounded-lg  shadow-lg bg-yellow-200 max-w-prose">
-        <p class="text-black text-center font-bold visited:text-black">Agregar otra persona </p>
-    </div></a>
-    </body>
-</html>
+{% extends 'base.html' %} {% block content %}
+<div class="p-48 bg-gray-900">
+  <p
+    class="font-sans italic text-bold text-center text-yellow-100 text-base text-6xl hover:no-underline italic"
+  >
+    ¡Bienvenido, {{data}} . Nos agrada tu presencia!
+  </p>
+  <br />
+  <a href="{{url_for('home')}}">
+    <div
+      class="container mx-auto block p-6 rounded-lg shadow-lg bg-yellow-200 max-w-prose"
+    >
+      <p class="text-black text-center font-bold visited:text-black">
+        Marcar Ingreso a Penguin House
+      </p>
+    </div></a
+  >
+  <br />
+  <br /><a href="{{url_for('registro_ent')}}">
+    <div
+      class="container mx-auto block p-6 rounded-lg shadow-lg bg-yellow-200 max-w-prose"
+    >
+      <p class="text-black text-center font-bold visited:text-black">
+        Agregar otra persona
+      </p>
+    </div></a
+  >
+</div>
+{% endblock %}
